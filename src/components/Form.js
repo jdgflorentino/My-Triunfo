@@ -3,15 +3,6 @@ import PropTypes from 'prop-types';
 import '../styles/form.css';
 
 class Form extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
-  }
-
-  onSaveButtonClick(event) {
-    event.preventDefault();
-  }
-
   render() {
     const {
       cardName,
@@ -22,13 +13,12 @@ class Form extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick } = this.props;
 
     return (
-      <form className="container">
+      <form className="container" onSubmit={ this.handleSubmit }>
         <h1>Adicionar nova carta</h1>
         <div className="style1">
           <label htmlFor="name-input">
