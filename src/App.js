@@ -8,24 +8,53 @@ class App extends React.Component {
     super();
 
     this.state = {
-      cardName: 'Nome da carta',
+      cardName: '',
       cardDescription: '',
-      cardAttr1: '45',
-      cardAttr2: '25',
-      cardAttr3: '78',
+      cardAttr1: '',
+      cardAttr2: '',
+      cardAttr3: '',
       cardImage: '',
-      cardRare: 'normal',
+      cardRare: '',
       cardTrunfo: false,
       hasTrunfo: false,
-      isSaveButtonDisabled: false,
+      isSaveButtonDisabled: true,
     };
     this.onInputChange = this.onInputChange.bind(this);
+    this.validation = this.validation.bind(this);
   }
 
   onInputChange({ target }) {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => this.validation());
+  }
+
+  validation() {
+    const { state: {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+    } } = this;
+
+    const sum = 210;
+    const maxScore = 90;
+
+    if ((!cardName)
+      || (!cardDescription)
+      || (!cardImage)
+      || (!cardRare)
+      || ((parseFloat(cardAttr1) + parseFloat(cardAttr2) + parseFloat(cardAttr3)) > sum)
+      || cardAttr1 > maxScore || cardAttr1 < 0
+      || cardAttr2 > maxScore || cardAttr2 < 0
+      || cardAttr3 > maxScore || cardAttr3 < 0) {
+      this.setState({ isSaveButtonDisabled: true });
+    } else {
+      this.setState({ isSaveButtonDisabled: false });
+    }
   }
 
   render() {
@@ -42,37 +71,31 @@ class App extends React.Component {
       isSaveButtonDisabled }, onInputChange } = this;
 
     return (
-      <div className="container">
-        <div className="container-add">
-          <Form
-            cardName={ cardName }
-            cardDescription={ cardDescription }
-            cardAttr1={ cardAttr1 }
-            cardAttr2={ cardAttr2 }
-            cardAttr3={ cardAttr3 }
-            cardImage={ cardImage }
-            cardRare={ cardRare }
-            cardTrunfo={ cardTrunfo }
-            hasTrunfo={ hasTrunfo }
-            isSaveButtonDisabled={ isSaveButtonDisabled }
-            onInputChange={ onInputChange }
-          />
-
-        </div>
-        <div className="container-card">
-
-          <Card
-            cardName={ cardName }
-            cardDescription={ cardDescription }
-            cardAttr1={ cardAttr1 }
-            cardAttr2={ cardAttr2 }
-            cardAttr3={ cardAttr3 }
-            cardImage={ cardImage }
-            cardRare={ cardRare }
-            cardTrunfo={ cardTrunfo }
-            hasTrunfo={ hasTrunfo }
-          />
-        </div>
+      <div className="app-container">
+        <Form
+          cardName={ cardName }
+          cardDescription={ cardDescription }
+          cardAttr1={ cardAttr1 }
+          cardAttr2={ cardAttr2 }
+          cardAttr3={ cardAttr3 }
+          cardImage={ cardImage }
+          cardRare={ cardRare }
+          cardTrunfo={ cardTrunfo }
+          hasTrunfo={ hasTrunfo }
+          isSaveButtonDisabled={ isSaveButtonDisabled }
+          onInputChange={ onInputChange }
+        />
+        <Card
+          cardName={ cardName }
+          cardDescription={ cardDescription }
+          cardAttr1={ cardAttr1 }
+          cardAttr2={ cardAttr2 }
+          cardAttr3={ cardAttr3 }
+          cardImage={ cardImage }
+          cardRare={ cardRare }
+          cardTrunfo={ cardTrunfo }
+          hasTrunfo={ hasTrunfo }
+        />
       </div>
     );
   }
