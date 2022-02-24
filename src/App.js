@@ -1,16 +1,18 @@
 import React from 'react';
+import Card from './components/Card';
 import Form from './components/Form';
+import './styles/app.css';
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      cardName: '',
+      cardName: 'Nome da carta',
       cardDescription: '',
-      cardAttr1: '',
-      cardAttr2: '',
-      cardAttr3: '',
+      cardAttr1: '45',
+      cardAttr2: '25',
+      cardAttr3: '78',
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
@@ -40,20 +42,37 @@ class App extends React.Component {
       isSaveButtonDisabled }, onInputChange } = this;
 
     return (
-      <div>
-        <Form
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          hasTrunfo={ hasTrunfo }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
-          onInputChange={ onInputChange }
-        />
+      <div className="container">
+        <div className="container-add">
+          <Form
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            hasTrunfo={ hasTrunfo }
+            isSaveButtonDisabled={ isSaveButtonDisabled }
+            onInputChange={ onInputChange }
+          />
+
+        </div>
+        <div className="container-card">
+
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            hasTrunfo={ hasTrunfo }
+          />
+        </div>
       </div>
     );
   }
