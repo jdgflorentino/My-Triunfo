@@ -24,6 +24,7 @@ class App extends React.Component {
     this.validation = this.validation.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.checkTrunfo = this.checkTrunfo.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
   }
 
   onSaveButtonClick(event) {
@@ -95,6 +96,10 @@ class App extends React.Component {
     }
   }
 
+  deleteCard() {
+    
+	}
+
   render() {
     const { state: {
       cardName,
@@ -106,7 +111,8 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       hasTrunfo,
-      isSaveButtonDisabled },
+      isSaveButtonDisabled,
+      card },
     onInputChange,
     onSaveButtonClick } = this;
 
@@ -135,8 +141,26 @@ class App extends React.Component {
           cardImage={ cardImage }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
-          hasTrunfo={ hasTrunfo }
         />
+
+        <div className="card-list">
+          { card.length > 0 && (card.map((e) => (
+            <div className="list-content" key={ e.cardName }>
+              <Card
+                cardName={ e.cardName }
+                cardDescription={ e.cardDescription }
+                cardAttr1={ e.cardAttr1 }
+                cardAttr2={ e.cardAttr2 }
+                cardAttr3={ e.cardAttr3 }
+                cardImage={ e.cardImage }
+                cardRare={ e.cardRare }
+                cardTrunfo={ e.cardTrunfo }
+                key={ e.cardName }
+              />
+              <button type="button" onClick={ this.deleteCard }>Excluir</button>
+            </div>)))}
+        </div>
+
       </div>
     );
   }

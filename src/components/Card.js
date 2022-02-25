@@ -13,7 +13,6 @@ class Card extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
     } = this.props;
 
     return (
