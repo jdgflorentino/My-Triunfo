@@ -24,7 +24,7 @@ class App extends React.Component {
     this.validation = this.validation.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.checkTrunfo = this.checkTrunfo.bind(this);
-    // this.deleteCard = this.deleteCard.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
   }
 
   onSaveButtonClick(event) {
@@ -62,12 +62,6 @@ class App extends React.Component {
     this.setState({ [name]: value }, () => this.validation());
   }
 
-  checkTrunfo() {
-    const { state } = this;
-    const trunfo = state.card.some((element) => element.cardTrunfo === true);
-    this.setState({ hasTrunfo: trunfo });
-  }
-
   validation() {
     const { state: {
       cardName,
@@ -96,14 +90,21 @@ class App extends React.Component {
     }
   }
 
-  // deleteCard(item) {
-  //   const { card } = this.state;
-  //   const newList = card.filter((e) => e.cardName !== item);
+  deleteCard({ target }) {
+    const { card } = this.state;
+    const newList = card.filter((e) => e.cardName !== target.name);
+    const trunfo = newList.some((element) => element.cardTrunfo === true);
+    this.setState({
+      card: newList,
+      hasTrunfo: trunfo,
+    }, this.checkTrunfo());
+  }
 
-  //   this.setState({
-  //     card: newList,
-  //   }, this.checkTrunfo());
-  // }
+  checkTrunfo() {
+    const { state } = this;
+    const trunfo = state.card.some((element) => element.cardTrunfo === true);
+    this.setState({ hasTrunfo: trunfo });
+  }
 
   render() {
     const { state: {
@@ -162,13 +163,14 @@ class App extends React.Component {
                 cardTrunfo={ e.cardTrunfo }
                 key={ e.cardName }
               />
-              {/* <button
+              <button
                 type="button"
+                name={ e.cardName }
                 data-testid="delete-button"
-                onClick={ this.deleteCard({ cardName }) }
+                onClick={ this.deleteCard }
               >
                 Excluir
-              </button> */}
+              </button>
             </div>)))}
         </div>
 
