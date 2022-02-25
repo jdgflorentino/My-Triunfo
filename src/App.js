@@ -23,11 +23,13 @@ class App extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.validation = this.validation.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.checkTrunfo = this.checkTrunfo.bind(this);
   }
 
   onSaveButtonClick(event) {
     event.preventDefault();
     const { state } = this;
+
     const newCard = {
       cardName: state.cardName,
       cardDescription: state.cardDescription,
@@ -48,13 +50,21 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
-    }));
+    }), () => {
+      this.checkTrunfo();
+    });
   }
 
   onInputChange({ target }) {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ [name]: value }, () => this.validation());
+  }
+
+  checkTrunfo() {
+    const { state } = this;
+    const trunfo = state.card.some((element) => element.cardTrunfo === true);
+    this.setState({ hasTrunfo: trunfo });
   }
 
   validation() {
