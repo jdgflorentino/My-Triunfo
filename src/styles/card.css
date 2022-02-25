@@ -1,5 +1,8 @@
 .card-container {
-  border: 1px solid black;
-  height: 600px;
-  width: 340px;
+  background-color: #112a3a;
+  border-radius: 12px;
+}
+
+.card-container h1, p, img {
+  color: #e4e5dd;
 }

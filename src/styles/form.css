@@ -1,8 +1,17 @@
 .container {
-  border: 1px solid black;
+  background-color: #e4e5dd;
+  border-radius: 10px;
   display: flex;
   flex-flow: column wrap;
   padding: 12px;
+}
+
+h1 {
+  color: #d04904;
+}
+
+label {
+  color: #112a3a;
 }
 
 .style1 {

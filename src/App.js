@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './components/Card';
 import Form from './components/Form';
+import Filter from './components/Filter';
 import './styles/app.css';
 
 class App extends React.Component {
@@ -19,12 +20,18 @@ class App extends React.Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       card: [],
+      searchInput: '',
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.validation = this.validation.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.checkTrunfo = this.checkTrunfo.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  handleSearch(event) {
+    this.setState({ searchInput: event.target.value });
   }
 
   onSaveButtonClick(event) {
@@ -118,62 +125,82 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
-      card },
+      card,
+      searchInput },
     onInputChange,
-    onSaveButtonClick } = this;
+    onSaveButtonClick,
+    handleSearch } = this;
 
     return (
-      <div className="app-container">
-        <Form
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          hasTrunfo={ hasTrunfo }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
-          onInputChange={ onInputChange }
-          onSaveButtonClick={ onSaveButtonClick }
-        />
-        <Card
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-        />
+      <div className="container">
 
-        <div className="card-list">
-          { card.length > 0 && (card.map((e) => (
-            <div className="list-content" key={ e.cardName }>
-              <Card
-                cardName={ e.cardName }
-                cardDescription={ e.cardDescription }
-                cardAttr1={ e.cardAttr1 }
-                cardAttr2={ e.cardAttr2 }
-                cardAttr3={ e.cardAttr3 }
-                cardImage={ e.cardImage }
-                cardRare={ e.cardRare }
-                cardTrunfo={ e.cardTrunfo }
-                key={ e.cardName }
-              />
-              <button
-                type="button"
-                name={ e.cardName }
-                data-testid="delete-button"
-                onClick={ this.deleteCard }
-              >
-                Excluir
-              </button>
-            </div>)))}
+        <div className="container1">
+          <div className="form-container">
+
+            <Form
+              cardName={ cardName }
+              cardDescription={ cardDescription }
+              cardAttr1={ cardAttr1 }
+              cardAttr2={ cardAttr2 }
+              cardAttr3={ cardAttr3 }
+              cardImage={ cardImage }
+              cardRare={ cardRare }
+              cardTrunfo={ cardTrunfo }
+              hasTrunfo={ hasTrunfo }
+              isSaveButtonDisabled={ isSaveButtonDisabled }
+              onInputChange={ onInputChange }
+              onSaveButtonClick={ onSaveButtonClick }
+            />
+          </div>
+          <div className="card-container">
+
+            <Card
+              cardName={ cardName }
+              cardDescription={ cardDescription }
+              cardAttr1={ cardAttr1 }
+              cardAttr2={ cardAttr2 }
+              cardAttr3={ cardAttr3 }
+              cardImage={ cardImage }
+              cardRare={ cardRare }
+              cardTrunfo={ cardTrunfo }
+            />
+
+          </div>
         </div>
 
+        <div className="container2">
+          <div className="filter-container">
+            <Filter handleSearch={ handleSearch } searchInput={ searchInput } />
+          </div>
+
+          <div className="card-list">
+            { card.length > 0 && (card
+              .filter((e) => e.cardName.includes(searchInput))
+              .map((e) => (
+                <div className="list-content" key={ e.cardName }>
+                  <Card
+                    cardName={ e.cardName }
+                    cardDescription={ e.cardDescription }
+                    cardAttr1={ e.cardAttr1 }
+                    cardAttr2={ e.cardAttr2 }
+                    cardAttr3={ e.cardAttr3 }
+                    cardImage={ e.cardImage }
+                    cardRare={ e.cardRare }
+                    cardTrunfo={ e.cardTrunfo }
+                    key={ e.cardName }
+                  />
+                  <button
+                    type="button"
+                    name={ e.cardName }
+                    data-testid="delete-button"
+                    onClick={ this.deleteCard }
+                  >
+                    Excluir
+                  </button>
+                </div>
+              )))}
+          </div>
+        </div>
       </div>
     );
   }
