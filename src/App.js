@@ -24,7 +24,7 @@ class App extends React.Component {
     this.validation = this.validation.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.checkTrunfo = this.checkTrunfo.bind(this);
-    this.deleteCard = this.deleteCard.bind(this);
+    // this.deleteCard = this.deleteCard.bind(this);
   }
 
   onSaveButtonClick(event) {
@@ -96,9 +96,14 @@ class App extends React.Component {
     }
   }
 
-  deleteCard() {
-    
-	}
+  // deleteCard(item) {
+  //   const { card } = this.state;
+  //   const newList = card.filter((e) => e.cardName !== item);
+
+  //   this.setState({
+  //     card: newList,
+  //   }, this.checkTrunfo());
+  // }
 
   render() {
     const { state: {
@@ -157,7 +162,13 @@ class App extends React.Component {
                 cardTrunfo={ e.cardTrunfo }
                 key={ e.cardName }
               />
-              <button type="button" onClick={ this.deleteCard }>Excluir</button>
+              {/* <button
+                type="button"
+                data-testid="delete-button"
+                onClick={ this.deleteCard({ cardName }) }
+              >
+                Excluir
+              </button> */}
             </div>)))}
         </div>
 
