@@ -4,7 +4,7 @@ import '../styles/form.css';
 
 class Filter extends React.Component {
   render() {
-    const { handleSearch, searchInput } = this.props;
+    const { handleSearch, searchInput, searchSelect } = this.props;
     return (
       <div className="filter-container">
         <h3>Todas as cartas</h3>
@@ -15,10 +15,26 @@ class Filter extends React.Component {
               type="text"
               data-testid="name-filter"
               id="name-filter"
-              name="name-filter"
+              name="searchInput"
+              placeholder="Nome da carta"
               value={ searchInput }
               onChange={ handleSearch }
             />
+          </label>
+          <label htmlFor="rare-filter">
+            <select
+              data-testid="rare-filter"
+              id="rare-filter"
+              name="searchSelect"
+              placeholder="Raridade"
+              value={ searchSelect }
+              onChange={ handleSearch }
+            >
+              <option>todas</option>
+              <option>normal</option>
+              <option>raro</option>
+              <option>muito raro</option>
+            </select>
           </label>
         </div>
         <button type="button">Buscar</button>
@@ -30,6 +46,7 @@ class Filter extends React.Component {
 Filter.propTypes = {
   handleSearch: PropTypes.func,
   searchInput: PropTypes.string,
+  searchSelect: PropTypes.string,
 }.isRequired;
 
 export default Filter;
