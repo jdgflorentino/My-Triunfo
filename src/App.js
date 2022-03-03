@@ -22,6 +22,7 @@ class App extends React.Component {
       card: [],
       searchInput: '',
       searchSelect: 'todas',
+      searchTrunfo: false,
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.validation = this.validation.bind(this);
@@ -31,8 +32,8 @@ class App extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  handleSearch({ target: { name, value } }) {
-    this.setState({ [name]: value });
+  handleSearch({ target: { name, value, type, checked } }) {
+    this.setState({ [name]: type === 'checkbox' ? checked : value });
   }
 
   onSaveButtonClick(event) {
@@ -128,7 +129,8 @@ class App extends React.Component {
       isSaveButtonDisabled,
       card,
       searchInput,
-      searchSelect },
+      searchSelect,
+      searchTrunfo },
     onInputChange,
     onSaveButtonClick,
     handleSearch } = this;
@@ -176,16 +178,20 @@ class App extends React.Component {
               handleSearch={ handleSearch }
               searchInput={ searchInput }
               searchSelect={ searchSelect }
+              searchTrunfo={ searchTrunfo }
             />
           </div>
 
           <div className="card-list">
             { card.length > 0 && (card.filter(
               (e) => e.cardName.includes(searchInput),
-            )
-            ).filter((e) => (searchSelect === 'todas'
-              ? e.cardRare.includes('')
-              : e.cardRare === searchSelect))
+            ))
+              .filter((e) => (searchSelect === 'todas'
+                ? e.cardRare.includes('')
+                : e.cardRare === searchSelect))
+              .filter((e) => (searchTrunfo
+                ? e.cardTrunfo
+                : true))
               .map((e) => (
                 <div className="list-content" key={ e.cardName }>
                   <Card
