@@ -2,7 +2,6 @@ import React from 'react';
 import Card from './components/Card';
 import Form from './components/Form';
 import Filter from './components/Filter';
-import './styles/app.css';
 
 class App extends React.Component {
   constructor() {
@@ -136,10 +135,13 @@ class App extends React.Component {
     handleSearch } = this;
 
     return (
-      <div className="container">
+      <div className="container mx-auto px-4 bg-cyan-700">
+        <div className="flex justify-center">
+          <h1 className="mt-8 text-4xl font-bold text-amber-600">My Triunfo</h1>
+        </div>
 
-        <div className="container1">
-          <div className="form-container">
+        <div className="grid grid-cols-2 bg-slate-100 mx-36 my-24">
+          <div className="col-start-1">
 
             <Form
               cardName={ cardName }
@@ -156,8 +158,10 @@ class App extends React.Component {
               onSaveButtonClick={ onSaveButtonClick }
             />
           </div>
-          <div className="card-container">
-
+          <div className="float-left">
+            <div className="flex justify-start ml-20 mt-20">
+              <h1 className="text-2xl text-amber-600 font-medium">Pré-visualização</h1>
+            </div>
             <Card
               cardName={ cardName }
               cardDescription={ cardDescription }
@@ -172,8 +176,15 @@ class App extends React.Component {
           </div>
         </div>
 
-        <div className="container2">
-          <div className="filter-container">
+        <div className="flex flex-col bg-slate-100 mx-36 mt-24">
+          <div className="flex justify-center my-10">
+            <p
+              className="text-4xl text-amber-600 font-medium"
+            >
+              Todas as cartas
+            </p>
+          </div>
+          <div className="flex flex-col justify-center">
             <Filter
               handleSearch={ handleSearch }
               searchInput={ searchInput }
@@ -182,7 +193,7 @@ class App extends React.Component {
             />
           </div>
 
-          <div className="card-list">
+          <div className="grid grid-flow-row grid-cols-2">
             { card.length > 0 && (card.filter(
               (e) => e.cardName.includes(searchInput),
             ))
@@ -193,7 +204,10 @@ class App extends React.Component {
                 ? e.cardTrunfo
                 : true))
               .map((e) => (
-                <div className="list-content" key={ e.cardName }>
+                <div
+                  className="flex flex-col justify-center content-center"
+                  key={ e.cardName }
+                >
                   <Card
                     cardName={ e.cardName }
                     cardDescription={ e.cardDescription }
@@ -205,14 +219,22 @@ class App extends React.Component {
                     cardTrunfo={ e.cardTrunfo }
                     key={ e.cardName }
                   />
-                  <button
-                    type="button"
-                    name={ e.cardName }
-                    data-testid="delete-button"
-                    onClick={ this.deleteCard }
-                  >
-                    Excluir
-                  </button>
+                  <div className="flex content-center ml-20">
+                    <button
+                      className="font-general-medium flex justify-center items-center
+          w-36 sm:w-48 mt-12 mb-6 sm:mb-0 text-lg
+          border border-orange-200 py-2.5 sm:py-3 shadow-lg rounded-lg
+          bg-orange-50 focus:ring-1 focus:ring-orange-900
+          hover:bg-orange-500 text-gray-500 hover:text-white duration-500"
+                      type="button"
+                      name={ e.cardName }
+                      data-testid="delete-button"
+                      onClick={ this.deleteCard }
+                    >
+                      Excluir
+                    </button>
+
+                  </div>
                 </div>
               ))}
           </div>

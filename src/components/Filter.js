@@ -1,17 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/form.css';
 
 class Filter extends React.Component {
   render() {
     const { handleSearch, searchInput, searchSelect, searchTrunfo } = this.props;
     return (
-      <div className="filter-container">
-        <h3>Todas as cartas</h3>
-        <div className="style1">
-          <label htmlFor="name-filter">
+      <div
+        className="flex
+        flex-col
+        border shadow-md rounded-lg
+        bg-cyan-900 mx-20 h-auto"
+      >
+        <div className="flex flex-row justify-around mr-8 my-8">
+          <label
+            htmlFor="name-filter"
+            className="flex text-cyan-50 font-bold items-center"
+          >
             Filtros de busca
             <input
+              className="mt-0
+              bg-slate-100
+              ml-5
+              block
+              px-0.5
+              border-2 border-gray-400
+              focus:ring-0 focus:border-black"
               type="text"
               data-testid="name-filter"
               id="name-filter"
@@ -23,6 +36,13 @@ class Filter extends React.Component {
           </label>
           <label htmlFor="rare-filter">
             <select
+              className="block
+                    bg-slate-100
+                    w-48
+                    mt-0
+                    px-0.5
+                    border-2 border-gray-400
+                    focus:ring-0 focus:border-black"
               data-testid="rare-filter"
               id="rare-filter"
               name="searchSelect"
@@ -36,8 +56,14 @@ class Filter extends React.Component {
               <option>muito raro</option>
             </select>
           </label>
-          <label htmlFor="trunfo-filter">
+          <label htmlFor="trunfo-filter" className="ml-2 inline-flex items-center">
             <input
+              className="
+                ml-2
+                          border-gray-400 border-2
+                          text-black
+                          focus:border-gray-400 focus:ring-black
+                        "
               type="checkbox"
               data-testid="trunfo-filter"
               id="trunfo-filter"
@@ -45,10 +71,14 @@ class Filter extends React.Component {
               checked={ searchTrunfo }
               onChange={ handleSearch }
             />
-            Super Trybe Tryunfo
+            <span
+              className="flex text-cyan-50
+              font-bold items-center ml-4"
+            >
+              Super Tryunfo
+            </span>
           </label>
         </div>
-        <button type="button">Buscar</button>
       </div>
     );
   }
