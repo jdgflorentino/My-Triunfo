@@ -48,3 +48,8 @@ npm start
 As seguintes ferramentas foram usadas na construção do projeto:
 -  **[React](https://pt-br.reactjs.org/)**
 -  **[TailwindCSS](https://tailwindcss.com/)**
+
+
+## :hourglass: Se eu tivesse mais tempo, eu...
+
+-  Criaria funcionalidade para jogar
